@@ -18,6 +18,10 @@ def creation_image_balle_noir(i,j,r,R):
         Im.append(L)
     return np.array(Im)
 
+def send_to_arduino(data:list, com="COM3"):
+    port = serial.Serial(com, 9600)
+    port.write(data.encode('utf- d8'))
+
 def __main__():
     print("testtetest")
     # test = np.ones((20, 20))
