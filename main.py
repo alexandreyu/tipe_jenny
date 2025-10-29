@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
-import tensorflow.keras as keras
+# import tensorflow.keras as keras
 import os 
 import PIL
 import serial
@@ -24,19 +24,19 @@ def send_to_arduino(data:list, com="COM3"):
 
 
 def __main__():
-    test = np.ones(20, 20)
-    # S = creation_image_balle_noir(5,6,1,10)
+    print("testtetest")
+    # test = np.ones((20, 20))
+    S = creation_image_balle_noir(5,6,1,10)
 
-    plt.imshow(test)
 
-    # data = np.zeros((512, 512, 3), dtype=np.uint8) * 255
-    # data[:, :] = [255, 255, 255]
+    data = np.zeros((512, 512, 3), dtype=np.uint8) * 255
+    data[:, :] = [255, 255, 255]
 
-    # plt.imshow(S)
-    plt.show()
+    plt.imshow(S)
+    plt.show(data)
     # S2 = np.array(S,dtype=np.float32)
 
-
+__main__()
 
 
 
