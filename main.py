@@ -4,6 +4,7 @@ import tensorflow as tf
 import tensorflow.keras as keras
 import os 
 import PIL
+import serial
 
 def creation_image_balle_noir(i,j,r,R):
     Im=[]
@@ -16,6 +17,10 @@ def creation_image_balle_noir(i,j,r,R):
                 L.append([0,0,0,1])
         Im.append(L)
     return np.array(Im)
+
+def send_to_arduino(data:list, com="COM3"):
+    port = serial.Serial(com, 9600)
+    port.write(data.encode('utf-8'))
 
 
 def __main__():
