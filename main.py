@@ -3,39 +3,36 @@ import numpy as np
 import tensorflow as tf
 # import tensorflow.keras as keras
 import os 
+
+import matplotlib.pyplot as plt
+import numpy as np
+import random
 import PIL
 import serial
 
-def creation_image_balle_noir(i,j,r,R):
+def creation_image_balle_noir(i,j,r,L,l):
     Im=[]
-    for k in range(R):
-        L=[]
-        for l in range (R):
-            if ((i-k)**2+(j-l)**2)<= r**2:
-                L.append( [1,1,1,1])
+    for k in range(L):
+        M=[]
+        for m in range (l):
+            if ((i-k)**2+(j-m)**2)<= r**2:
+                M.append( [247,134,1])
             else:
-                L.append([0,0,0,1])
-        Im.append(L)
+                M.append([0,0,0])
+        Im.append(M)
     return np.array(Im)
 
+<<<<<<< HEAD
+def point_aleatoire(r,L,l):
+    i= random.randint(0,L-r)
+    j= random.randint(0,l-r)
+    plt.imshow(creation_image_balle_noir(i,j,r,L,l))
+    return creation_image_balle_noir(i,j,r,L,l)
+=======
 def send_to_arduino(data:list, com="COM3"):
     port = serial.Serial(com, 9600)
     port.write(data.encode('utf- d8'))
+>>>>>>> 54e4cc74d3690bc74fa7582e2370e5343db32252
 
-def __main__():
-    print("testtetest")
-    # test = np.ones((20, 20))
-    S = creation_image_balle_noir(5,6,1,10)
-
-
-    data = np.zeros((512, 512, 3), dtype=np.uint8) * 255
-    data[:, :] = [255, 255, 255]
-
-    plt.imshow(S)
-    plt.show(data)
-    # S2 = np.array(S,dtype=np.float32)
-
-__main__()
-
-
-
+print(point_aleatoire(3,100,200))
+plt.show()
