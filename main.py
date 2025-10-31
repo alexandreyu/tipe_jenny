@@ -22,17 +22,12 @@ def creation_image_balle_noir(i,j,r,L,l):
         Im.append(M)
     return np.array(Im)
 
-<<<<<<< HEAD
 def point_aleatoire(r,L,l):
     i= random.randint(0,L-r)
     j= random.randint(0,l-r)
     plt.imshow(creation_image_balle_noir(i,j,r,L,l))
     return creation_image_balle_noir(i,j,r,L,l)
-=======
-def send_to_arduino(data:list, com="COM3"):
-    port = serial.Serial(com, 9600)
-    port.write(data.encode('utf- d8'))
->>>>>>> 54e4cc74d3690bc74fa7582e2370e5343db32252
+
 
 print(point_aleatoire(3,100,200))
 plt.show()
