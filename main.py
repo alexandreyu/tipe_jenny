@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
 import PIL
-import serial
+import os
 
 def creation_image_balle_noir(i,j,r,L,l):
     Im=[]
@@ -20,14 +20,20 @@ def creation_image_balle_noir(i,j,r,L,l):
             else:
                 M.append([0,0,0])
         Im.append(M)
-    return np.array(Im)
+    return np.array(Im, dtype=np.uint8)
 
 def point_aleatoire(r,L,l):
-    i= random.randint(0,L-r)
-    j= random.randint(0,l-r)
-    plt.imshow(creation_image_balle_noir(i,j,r,L,l))
+    i= random.randint(r,L-r)
+    j= random.randint(r,l-r)
     return creation_image_balle_noir(i,j,r,L,l)
 
+def creation_basedonnee(N):
+    for i in range (N):
+        image = point_aleatoire(3,100,150)
+        plt.imshow(image)
+        plt.imsave(r"C:\Users\jxue0\OneDrive\Documents\Jenny\Doc prépa\TIPE LAKANAL\bade de donnee\data"+str(i)+".png",image)
+        print("Les fichiers seront enregistrés dans :", os.getcwd())
 
-print(point_aleatoire(3,100,200))
+
 plt.show()
+creation_basedonnee(3)
