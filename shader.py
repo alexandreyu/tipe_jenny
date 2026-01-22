@@ -30,7 +30,22 @@ Possible de combiner les deux algo pour ne pas passer par l'étape de coloriage,
 '''
 
 
-def process_image(image, outpath="crotte.png"):
+def draw_crosshair(image, x, y):
+    image[x, y] = [0, 0, 0]
+    image[x + 1, y] = [0, 0, 0]
+    image[x + 2, y] = [0, 0, 0]
+    image[x - 1, y] = [0, 0, 0]
+    image[x - 2, y] = [0, 0, 0]
+    image[x, y + 1] = [0, 0, 0]
+    image[x, y + 2] = [0, 0, 0]
+    image[x, y - 1] = [0, 0, 0]
+    image[x, y - 2] = [0, 0, 0]
+    return image
+
+
+def process_image(image, outpath="test.png"):
+    center = []
+    count = 0
     for i in range(image.shape[0]):
         for j in range(image.shape[1]):
             pixel = image[i, j]
@@ -41,8 +56,18 @@ def process_image(image, outpath="crotte.png"):
                     (pixel[0] / strongest >= 0.5) and (pixel[0] / strongest <= 0.8)  # Bleu
             )
             if fetch_condition:
-                image[i, j] = [0, 0, 255]
-    cv.imwrite(outpath, image)
+                count += 1
+                if len(center) == 2:
+                    center[0] += i
+                    center[1] += j
+                else:
+                    center.append(i)
+                    center.append(j)
+
+    center[0] /= count
+    center[1] /= count
+    print(center)
+    cv.imwrite(outpath, draw_crosshair(image, int(center[0]), int(center[1])))
 
 
 def process_folder(path, outpath):
