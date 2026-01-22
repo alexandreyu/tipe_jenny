@@ -46,5 +46,7 @@ def grayscale_to_dataset():
         grayscale_to_folder("images/" + i, "dataset/" + i)
 
 
+
+
 # grayscale_to_dataset()
 # print(load_png(grayscale("cat_test.png", gs=True)))

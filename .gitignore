@@ -185,5 +185,6 @@ fabric.properties
 .idea
 
 # Images
-dataset/
-images/
+shader_test/*
+dataset/*
+images/*

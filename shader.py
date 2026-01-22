@@ -1,0 +1,43 @@
+import cv2 as cv
+import numpy as np
+from PIL import Image
+from matplotlib import pyplot as plt
+
+
+def convert_to_png(path):
+    img = Image.open(path + ".jpg")
+    img.save(path + ".png")
+
+
+convert_to_png("shader_test/balle2")
+image = cv.imread("shader_test/balle2.png")
+'''
+Shader (ici) : instruction qui est réalisée pour chaque pixel d'une image (ou d'un rendu 3D), sert à faire des 
+effets de lumière, ombres, rendus particuliers...
+
+Principe de la détection par shader : on parcourt tous les pixels de l'image et on vérifie si sa teinte (hue) est 
+comprise entre certaines valeurs (qui sont essentiellement entrées au pif jusqu'à que ça filtre bien le fond sans être
+trop restrictif), et on les colorie en rouge.
+
+À implémenter : algorithme qui prend en entrée l'image avec la boule en rouge, et qui renvoie le centre
+Possible de combiner les deux algo pour ne pas passer par l'étape de coloriage, mais complexe en temps réel peut-être.
+
+
+
+'''
+
+
+for i in range(image.shape[0]):
+    for j in range(image.shape[1]):
+        pixel = image[i, j]
+        strongest = max(int(pixel[0]), int(pixel[1]), int(pixel[2]))
+        fetch_condition = (
+            (pixel[2]/strongest >= 0.9) and (pixel[2]/strongest <= 1.0) and  # Rouge
+            (pixel[1]/strongest >= 0.7) and (pixel[1]/strongest <= 1.0) and  # Vert
+            (pixel[0]/strongest >= 0.5) and (pixel[0]/strongest <= 0.7)  # Bleu
+        )
+        if fetch_condition:
+            image[i, j] = [0, 0, 255]
+
+cv.imwrite("shader_test/altered2.png", image)
+
