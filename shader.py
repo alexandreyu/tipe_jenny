@@ -1,6 +1,7 @@
 import cv2 as cv
 import numpy as np
 from PIL import Image
+import os
 from matplotlib import pyplot as plt
 
 
@@ -9,8 +10,10 @@ def convert_to_png(path):
     img.save(path + ".png")
 
 
-convert_to_png("shader_test/balle2")
-image = cv.imread("shader_test/balle2.png")
+def convert_folder(path):
+    for i in os.listdir(path):
+        convert_to_png(path + "/" + i.split(".")[0])
+
 '''
 Shader (ici) : instruction qui est réalisée pour chaque pixel d'une image (ou d'un rendu 3D), sert à faire des 
 effets de lumière, ombres, rendus particuliers...
@@ -27,17 +30,28 @@ Possible de combiner les deux algo pour ne pas passer par l'étape de coloriage,
 '''
 
 
-for i in range(image.shape[0]):
-    for j in range(image.shape[1]):
-        pixel = image[i, j]
-        strongest = max(int(pixel[0]), int(pixel[1]), int(pixel[2]))
-        fetch_condition = (
-            (pixel[2]/strongest >= 0.9) and (pixel[2]/strongest <= 1.0) and  # Rouge
-            (pixel[1]/strongest >= 0.7) and (pixel[1]/strongest <= 1.0) and  # Vert
-            (pixel[0]/strongest >= 0.5) and (pixel[0]/strongest <= 0.7)  # Bleu
-        )
-        if fetch_condition:
-            image[i, j] = [0, 0, 255]
+def process_image(image, outpath="crotte.png"):
+    for i in range(image.shape[0]):
+        for j in range(image.shape[1]):
+            pixel = image[i, j]
+            strongest = max(int(pixel[0]), int(pixel[1]), int(pixel[2]))
+            fetch_condition = (
+                    (pixel[2] / strongest >= 0.9) and (pixel[2] / strongest <= 1.0) and  # Rouge
+                    (pixel[1] / strongest >= 0.7) and (pixel[1] / strongest <= 1.0) and  # Vert
+                    (pixel[0] / strongest >= 0.5) and (pixel[0] / strongest <= 0.8)  # Bleu
+            )
+            if fetch_condition:
+                image[i, j] = [0, 0, 255]
+    cv.imwrite(outpath, image)
 
-cv.imwrite("shader_test/altered2.png", image)
+
+def process_folder(path, outpath):
+    for i in os.listdir(path):
+        img = cv.imread(path + "/" + i)
+        process_image(img, outpath + "/" + i)
+
+
+# convert_folder("shader_test")
+process_folder("shader_test", "shader_processed")
+
 

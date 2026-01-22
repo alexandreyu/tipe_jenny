@@ -36,7 +36,7 @@ model.compile(optimizer='adam',
 # Affiche la structure des couches, plus pour le style qu'autre chose
 model.summary()
 
-epochs = 100
+epochs = 20
 epochs_range = range(epochs)
 
 history = model.fit(

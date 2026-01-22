@@ -188,3 +188,4 @@ fabric.properties
 shader_test/*
 dataset/*
 images/*
+shader_processed/*
