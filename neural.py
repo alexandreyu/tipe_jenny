@@ -1,9 +1,10 @@
 import tensorflow as tf
+'''
 import random as rd
 import matplotlib.pyplot as plt
 import numpy as np
 import PIL
-
+'''
 # On charge les données du dataset dans leurs ensembles respectifs
 (train_images, train_labels), (test_images, test_labels) = tf.keras.datasets.fashion_mnist.load_data()
 
