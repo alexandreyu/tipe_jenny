@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 
 # La taille de paquet est le nombre d'images par paquet, ça permet de paralléliser et de traiter beaucoup plus vite
-batch_size = 8
+batch_size = 1
 size = (120, 160)
 
 # On charge les images dans nos deux datasets
@@ -53,18 +53,16 @@ val_acc = history.history['val_accuracy']
 loss = history.history['loss']
 val_loss = history.history['val_loss']
 
-
-
 plt.figure(figsize=(8, 8))
 plt.subplot(1, 2, 1)
-plt.plot(epochs_range, acc, label='Training Accuracy')
-plt.plot(epochs_range, val_acc, label='Validation Accuracy')
+plt.plot(epochs_range, acc, label='Accuracy Entrainement')
+plt.plot(epochs_range, val_acc, label='Accuracy Evaluation')
 plt.legend(loc='lower right')
-plt.title('Training and Validation Accuracy')
+plt.title('Accuracies Entrainement et Evaluation')
 
 plt.subplot(1, 2, 2)
-plt.plot(epochs_range, loss, label='Training Loss')
-plt.plot(epochs_range, val_loss, label='Validation Loss')
+plt.plot(epochs_range, loss, label='Perte Entrainement')
+plt.plot(epochs_range, val_loss, label='Perte Evaluation')
 plt.legend(loc='upper right')
-plt.title('Training and Validation Loss')
+plt.title('Pertes Entrainement et Validation')
 plt.show()

@@ -41,12 +41,17 @@ def load_png(path, channels=1):
     return img
 
 
+def folder_to_ppm():
+    for i in os.listdir("ppm"):
+        im = Image.open("ppm/" + i)
+        im.save("ppm/" + i.split(".")[0] + ".ppm")
+
+
 def grayscale_to_dataset():
     for i in os.listdir("images"):
         grayscale_to_folder("images/" + i, "dataset/" + i)
 
 
-
-
+folder_to_ppm()
 # grayscale_to_dataset()
 # print(load_png(grayscale("cat_test.png", gs=True)))

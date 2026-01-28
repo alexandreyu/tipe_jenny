@@ -78,5 +78,3 @@ def process_folder(path, outpath):
 
 # convert_folder("shader_test")
 process_folder("shader_test", "shader_processed")
-
-
