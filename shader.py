@@ -43,7 +43,7 @@ def draw_crosshair(image, x, y):
     return image
 
 
-def process_image(image, outpath="test.png"):
+def process_image(image):
     center = []
     count = 0
     for i in range(image.shape[0]):
@@ -63,18 +63,27 @@ def process_image(image, outpath="test.png"):
                 else:
                     center.append(i)
                     center.append(j)
+    if len(center) != 2:
+        center.append(0)
+        center.append(0)
+        count = 1
 
     center[0] /= count
     center[1] /= count
-    print(center)
+    return center
+
+
+def crosshair_image(image, outpath="test.png"):
+    center = process_image(image)
     cv.imwrite(outpath, draw_crosshair(image, int(center[0]), int(center[1])))
 
 
-def process_folder(path, outpath):
+def crosshair_folder(path, outpath):
     for i in os.listdir(path):
         img = cv.imread(path + "/" + i)
-        process_image(img, outpath + "/" + i)
+        crosshair_image(img, outpath + "/" + i)
 
 
+# print(os.listdir("shader_test"))
 # convert_folder("shader_test")
-process_folder("shader_test", "shader_processed")
+crosshair_folder("shader_test", "shader_processed")
