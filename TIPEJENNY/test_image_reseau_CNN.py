@@ -7,7 +7,7 @@ batch_size = 1
 size = (120, 160)
 
 # On charge les images dans nos deux datasets
-(train_set, test_set) = tf.keras.utils.image_dataset_from_directory("dataset_num2",
+(train_set, test_set) = tf.keras.utils.image_dataset_from_directory("dataset1",
                                                                     subset="both", #renvoie les 2 sous-ensembles
                                                                     validation_split=0.2, #20%test
                                                                     seed=1,
@@ -34,7 +34,7 @@ model = tf.keras.Sequential([
     # 2. Première couche de convolution + pooling
     # Détecte les formes simples (bords, contrastes)
     tf.keras.layers.Conv2D(filters=16, kernel_size=(3, 3),padding="same",  activation='relu'),
-    #32 filtres différents sur l'image; chaque filtre est une petite grille 3x3
+    #32 filtres différents sur l'image; chaque filtre est une petite grille 3x3, le padding sert à ajouter une bordure de pixels virtuels
     tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
     #réduit la taille par 2 (prends le pixel le plus important sur chaque carré de 2x2
     # 3. Deuxième couche de convolution + pooling
@@ -44,7 +44,7 @@ model = tf.keras.Sequential([
 
     # 4. Partie Classification (on aplatit les caractéristiques trouvées)
     tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(64, activation='relu'),
+    #tf.keras.layers.Dense(64, activation='relu'),
     tf.keras.layers.Dense(n_classes),
 
 ])
@@ -76,16 +76,31 @@ val_acc = historique.history['val_accuracy']
 loss = historique.history['loss']
 val_loss = historique.history['val_loss']
 
+# Sauvegarder le modèle complet
+model.save('reseau.h5')
+print("Modèle sauvegardé avec succès au format .h5 !")
+
 plt.figure(figsize=(8, 8))
-plt.subplot(1, 2, 1)
+
 plt.plot(epochs_range, acc, label='Précision Entrainement')
 plt.plot(epochs_range, val_acc, label='Précision Evaluation')
+plt.plot()
 plt.legend(loc='lower right')
+plt.xlabel('Epochs')
+plt.ylabel('Précision')
 plt.title('Evolution de la précision du réseau')
+plt.xticks(epochs_range)
+plt.show()
 
+
+'''
 plt.subplot(1, 2, 2)
 plt.plot(epochs_range, loss, label='Perte Entrainement')
 plt.plot(epochs_range, val_loss, label='Perte Evaluation')
 plt.legend(loc='upper right')
 plt.title("Evolution de l'erreur" )
-plt.show()
+'''
+
+# Sauvegarder le modèle complet
+model.save('reseau.h5')
+print("Modèle sauvegardé avec succès au format .h5 !")

@@ -33,7 +33,6 @@ model = tf.keras.Sequential([
     tf.keras.layers.Conv2D(filters=32, kernel_size=(3, 3),padding="same", activation='relu'),
     tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
     tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(64, activation='relu'),
     tf.keras.layers.Dense(n_classes),
 ])
 

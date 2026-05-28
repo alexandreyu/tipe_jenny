@@ -1,3 +1,4 @@
+
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
@@ -13,6 +14,7 @@ size = (120, 160)
                                                                     seed=1,
                                                                     image_size=size,
                                                                     batch_size=batch_size)
+
 # On définit les catégories (gauche, milieu, droite)
 class_names = train_set.class_names
 
@@ -35,7 +37,7 @@ model = tf.keras.Sequential([
     tf.keras.layers.Rescaling(1./255, input_shape=(size[0], size[1], 3)),
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(128, activation='relu'),
-    tf.keras.layers.Dense(n_classes,activation = 'relu') #on a 3 neurones en sortie
+    tf.keras.layers.Dense(n_classes) #on a 3 neurones en sortie
 ])
 
 
@@ -66,15 +68,22 @@ loss = historique.history['loss']
 val_loss = historique.history['val_loss']
 
 plt.figure(figsize=(8, 8))
-plt.subplot(1, 2, 1)
+
 plt.plot(epochs_range, acc, label='Précision Entrainement')
 plt.plot(epochs_range, val_acc, label='Précision Evaluation')
+plt.xlabel("Epochs")
+plt.ylabel("Précision")
 plt.legend(loc='lower right')
 plt.title('Evolution de la précision du réseau')
+plt.show()
 
+'''*
 plt.subplot(1, 2, 2)
 plt.plot(epochs_range, loss, label='Perte Entrainement')
 plt.plot(epochs_range, val_loss, label='Perte Evaluation')
 plt.legend(loc='upper right')
 plt.title("Evolution de l'erreur" )
 plt.show()
+'''
+
+
